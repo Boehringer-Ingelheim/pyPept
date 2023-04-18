@@ -1,0 +1,92 @@
+
+  Marvin  06250814262D          
+
+  7  6  0  0  0  0            999 V2000
+    5.4886   -3.0482    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2031   -3.4608    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    6.9176   -3.0483    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2030   -4.2858    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9177   -2.2233    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.6321   -3.4609    0.0000 R#  0  0  0  0  0  0  0  0  0  0  0  0
+    5.4886   -4.6983    0.0000 R#  0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  1  0  0  0
+  4  2  1  0  0  0  0
+  2  3  1  0  0  0  0
+  3  5  2  0  0  0  0
+  3  6  1  0  0  0  0
+  4  7  1  0  0  0  0
+M  RGP  2   6   2   7   1
+M  END
+> <monomerType>
+Backbone
+
+> <symbol>
+A
+
+> <smiles>
+C[C@H](N[H:1])C([OH:2])=O
+
+> <author>
+Pistoia Alliance
+
+> <name>
+Alanine
+
+> <naturalAnalog>
+A
+
+> <polymerType>
+PEPTIDE
+
+> <id>
+12
+
+> <createDate>
+Tue Jul 31 17:13:57 CEST 2018
+
+> <alternateId>
+R2-OH
+
+> <id (#1)>
+0
+
+> <label>
+R2
+
+> <capGroupSMILES>
+O[*:2]
+
+> <capGroupName>
+OH
+
+> <alternateId (#1)>
+R1-H
+
+> <id (#2)>
+0
+
+> <label (#1)>
+R1
+
+> <capGroupSMILES (#1)>
+[*:1][H]
+
+> <capGroupName (#1)>
+H
+
+> <alternateId (#2)>
+
+
+> <id (#3)>
+
+
+> <label (#2)>
+
+
+> <capGroupSMILES (#2)>
+
+
+> <capGroupName (#2)>
+
+
+$$$$
