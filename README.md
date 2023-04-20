@@ -20,7 +20,7 @@ We recommend to create a conda environment with python 3.9 where RDKit can be in
 ```Bash
 conda create -n pypept python=3.9
 conda activate pypept
-conda install -c rdkit rdkit
+conda install -c conda-forge rdkit
 ```
 
 After that, pyPept can be easilly installed using the `setup.py` with:
