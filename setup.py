@@ -35,6 +35,7 @@ setuptools.setup(
         'numpy >= 1.22.2',
         'pandas >= 1.4.1',
         'requests >= 2.27.1',
+        'igraph >= 0.9.10',
         'biopython >= 1.79'
     ],
     include_package_data = True,
@@ -46,7 +47,7 @@ try:
     import rdkit
 except ModuleNotFoundError as exc:
     print("No rdkit installation found! Make sure you install it first!\n" + \
-        "Try: 'conda install -c rdkit rdkit'.")
+        "Try: 'conda install -c conda-forge rdkit'.")
 
 if rdkit.__version__ < '2019.09.04':
     raise ValueError(

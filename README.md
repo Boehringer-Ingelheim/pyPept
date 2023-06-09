@@ -16,14 +16,13 @@ The package relies on RDKit (https://rdkit.org/) and the BioPython (https://biop
 
 ## Quick installation
 
-We recommend to create a conda environment with python 3.9 where RDKit can be installed using the following commands:
+We recommend creating a conda environment with python 3.9, and then install RDKit using the conda-forge channels. This can be done using the following commands:
 ```Bash
 conda create -n pypept python=3.9
 conda activate pypept
-conda install -c rdkit rdkit
+conda install -c conda-forge rdkit
 ```
-
-After that, pyPept can be easilly installed using the `setup.py` with:
+The remaining dependencies such as BioPython and Pandas can be installed using the `setup.py` file provided in the code repository, which uses python package managers to easily install the required modules. The script can be called with:
 ```Bash
 python setup.py install
 ```
@@ -66,7 +65,17 @@ Logging options:
   -v, --verbose        Increase output verbosity
 ```
 
-The only required variable is the peptide, which can be provided directly using the BILN format (--biln), or both HELM (--helm) and FASTA (--fasta) can be provided too. For the latest two, the pipeline script converts the format to a BILN representation. For FASTA only natural amino acids are allowed. 
+The only required variable is the peptide, which can be provided directly using the BILN format (--biln), or both HELM (--helm) and FASTA (--fasta) can be provided too. For the latest two, the pipeline script converts the format to a BILN representation. For FASTA only natural amino acids are allowed.
+
+Specifically, pyPept can interconvert between HELM and FASTA formats to BILN, which is internally used by pyPept to facilitate the readability of the molecules and to guarantee a correct chemistry of the peptides during the generation of the RDKit molecular object. Some examples of different modified peptides are shown below:
+
+| BILN | HELM | FASTA |
+| --- | --- | --- |
+| P-E-P-T-I-D-E | PEPTIDE1{P.E.P.T.I.D.E}$$$$V2.0 |	PEPTIDE |
+| ac-D-T-H-F-E-I-A-am | PEPTIDE1{[ac].D.T.H.F.E.I.A.[am]}$$$$V2.0 | None |
+| C(1,3)-A-A-A-C(1,3) | PEPTIDE1{C.A.A.A.C}$PEPTIDE1,PEPTIDE1,1:R3-5:R3$$$V2.0 | CAAAC |
+| A-G-Q-A-A-K(1,3)-E-F-I-A-A.G-L-E-E(1,3) | PEPTIDE1{A.G.Q.A.A.K.E.F.I.A.A}PEPTIDE2{G.L.E.E}$PEPTIDE1,PEPTIDE2,6:R3-4:R3$$$V2.0 | None |
+| N-Iva-F-D-I-meT-N-A-L-W-Y-Aib-K | PEPTIDE1{N.[Iva].F.D.I.[meT].N.A.L.W.Y.[Aib].K}$$$$V2.0 | None |
 
 Additional options can be included based on the description provided in the help menu. An example using the biln sequence 'ac-D-T-H-F-E-I-A-am' is shown (``ac`` and ``am`` represent the terminal acid and amine, respectively, and are defined monomers as part of the pyPept package):
 
@@ -78,6 +87,7 @@ python run_pyPept.py --biln 'ac-D-T-H-F-E-I-A-am'
 
 If the functions want to be used separately, these are examples for each available class. The first thing is to import the modules and main functions:
 
+**NOTE: In the `examples` folder we provide a set of scripts to run some of the modules for generating 2D and 3D  representations using the peptides shown in the table with different formats (BILN and HELM).**
 ```Python
 # PyPept modules
 from pyPept.sequence import Sequence
@@ -108,7 +118,7 @@ If the peptide is in HELM notation, it can be converted to BILN using the follow
 # Call the converter to change from HELM to BILN
 from pyPept.converter import Converter
 helm = "PEPTIDE1{[ac].D.T.H.F.E.I.A.[am]}$$$$V2.0"
-b = Converter(helm=args.helm)
+b = Converter(helm=helm)
 biln = b.get_biln()
 seq = Sequence(biln)
 # Correct atom names in the sequence object
