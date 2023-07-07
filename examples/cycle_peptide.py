@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 '''
 Example: cycle peptide
 Input: BILN sequence

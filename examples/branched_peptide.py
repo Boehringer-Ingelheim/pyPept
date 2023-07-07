@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 '''
 Example: branched peptide
 Input: HELM sequence

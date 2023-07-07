@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 '''
 Example: capped peptide
 Input: BILN sequence
