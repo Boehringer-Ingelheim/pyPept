@@ -177,4 +177,4 @@ If you use pyPept in your work, please cite the following papers:
 
 ## Support
 
-For inquiries please contact the lead author at: rodrigo.ochoa@boehringer-ingelheim.com .
+For inquiries please contact: thomas.fox@boehringer-ingelheim.com .
