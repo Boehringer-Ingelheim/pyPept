@@ -3,7 +3,7 @@
 ## A python library to generate atomistic 2D and 3D representations of peptides
 
 * From the publication [pyPept: a python library to generate atomistic 2D and 3D representations of peptides](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-023-00748-2) 
-* Journal of Cheminformatics, 2023:79
+* Journal of Cheminformatics, 2023, 15:79
 * Authors: Rodrigo Ochoa, J.B Brown, Thomas Fox
 
 ## Purpose
