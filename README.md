@@ -2,8 +2,8 @@
 
 ## A python library to generate atomistic 2D and 3D representations of peptides
 
-* From publication "pyPept: a python library to generate atomistic 2D and 3D representations of peptides"
-* Journal of Cheminformatics, 2023
+* From the publication [pyPept: a python library to generate atomistic 2D and 3D representations of peptides](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-023-00748-2) 
+* Journal of Cheminformatics, 2023:79
 * Authors: Rodrigo Ochoa, J.B Brown, Thomas Fox
 
 ## Purpose
@@ -27,7 +27,11 @@ The remaining dependencies such as BioPython and Pandas can be installed using t
 python setup.py install
 ```
 
-That's it !!!. pyPept can be run using a CLI file provided called `run_pyPept.py`, or using the modules directly in a python script. Examples of both cases are described in the next section.
+That's all there is to installation! pyPept can be run using a CLI file provided called `run_pyPept.py` or by using the modules directly in a python script.
+Examples of both cases are described in the next section.
+
+Note that the `run_pyPept.py` is included when you clone the repository but *will not* be installed by the `setup.py` script to the directory where you installed the pyPept API libraries.
+You can place `run_pyPept.py` in a location convenient for you to run it, such as your home directory or a team's shared directory.
 
 ## How to run it
 
@@ -172,8 +176,8 @@ python test.py
 
 If you use pyPept in your work, please cite the following papers:
 
-* 'pyPept: a python library to generate atomistic 2D and 3D representations of peptides', Journal of Cheminformatics, 2023.
-* 'BILN – A Human-readable Line Notation for Complex Peptides', Journal of Chemical Information and Modelling, 2022.
+* [pyPept: a python library to generate atomistic 2D and 3D representations of peptides](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-023-00748-2) , Journal of Cheminformatics, 2023.
+* [BILN – A Human-readable Line Notation for Complex Peptides](https://pubs.acs.org/doi/10.1021/acs.jcim.2c00703), Journal of Chemical Information and Modelling, 2022.
 
 ## Support
 
