@@ -21,8 +21,8 @@ __version__ = "1.0"
 
 from src.pyPept.sequence import Sequence
 from src.pyPept.sequence import correct_pdb_atoms
-from src.pyPept import Molecule
-from src.pyPept import Conformer
+from src.pyPept.molecule import Molecule
+from src.pyPept.conformer import Conformer
 
 # RDKit modules
 from rdkit import Chem

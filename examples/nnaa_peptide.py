@@ -19,12 +19,12 @@ __version__ = "1.0"
 # Modules
 ########################################################################################
 
-from src.pyPept.sequence import Sequence
-from src.pyPept.sequence import correct_pdb_atoms
-from src.pyPept import Molecule
-from src.pyPept import Converter
-from src.pyPept import Conformer
-from src.pyPept import SecStructPredictor
+from pyPept.sequence import Sequence
+from pyPept.sequence import correct_pdb_atoms
+from pyPept.molecule import Molecule
+from pyPept.converter import Converter
+from pyPept.conformer import Conformer
+from pyPept.conformer import SecStructPredictor
 
 # RDKit modules
 from rdkit import Chem
