@@ -22,7 +22,7 @@ packages. To install pyPept in development setting simply type:
 
 .. code-block:: console
 
-    $ git clone
+    $ git clone [clone site]
     $ cd pyPept
     $ pip install -e .[dev]
 

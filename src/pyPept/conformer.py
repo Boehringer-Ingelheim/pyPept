@@ -121,7 +121,6 @@ class Conformer:
         if monomer_df_filepath.is_file() is False:
             monomer_df_filepath = default_monomer_df_filepath
 
-        print(monomer_df_filepath)
         new_df = get_monomer_info(str(monomer_df_filepath))
 
         try:
