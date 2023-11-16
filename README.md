@@ -117,7 +117,7 @@ If the peptide is in HELM notation, it can be converted to BILN using the follow
 
 ```Python
 # Call the converter to change from HELM to BILN
-from pyPept import Converter
+from pyPept.converter import Converter
 
 helm = "PEPTIDE1{[ac].D.T.H.F.E.I.A.[am]}$$$$V2.0"
 b = Converter(helm=helm)
