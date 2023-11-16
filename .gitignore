@@ -1,9 +1,27 @@
-# Byte-compiled
+# Byte-compiled / optimized / DLL files
 __pycache__/
-
+*.py[cod]
 
 # Distribution / packaging
-build/
-dist/
 *.egg-info/
-*.egg
+.eggs/
+dist/
+
+# IDE settings Pycharm/VSCode/Visual Studio
+.idea
+.vscode
+*.sln
+
+# pytest
+.pytest_cache
+
+# IPython Notebook
+.ipynb_checkpoints
+
+# Sphinx documentation
+/docs/build/
+/docs/source/reference/generated/*rst
+
+# managing secrets
+.ini
+.env

@@ -11,7 +11,7 @@ Journal of Cheminformatics, 2023
 
 __credits__ = ["Rodrigo Ochoa", "J.B. Brown", "Thomas Fox"]
 __license__ = "MIT"
-__version__ = "1.0"
+
 
 ########################################################################################
 # Modules

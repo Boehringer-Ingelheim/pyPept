@@ -11,7 +11,7 @@ Journal of Cheminformatics, 2023
 
 __credits__ = ["Rodrigo Ochoa", "J.B. Brown", "Thomas Fox"]
 __license__ = "MIT"
-__version__ = "1.0"
+
 
 ########################################################################################
 # Modules
@@ -33,7 +33,7 @@ def run_tests():
     test_loader = TestLoader()
     test_result = TestResult()
 
-    test_directory = str(Path(__file__).resolve().parent / 'tests')
+    test_directory = str(".")
 
     test_suite = test_loader.discover(test_directory, pattern='*_Test.py')
     test_suite.run(result=test_result)

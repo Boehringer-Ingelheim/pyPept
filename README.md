@@ -12,32 +12,28 @@ Here we present pyPept, a package to allow the analysis of natural and modified 
 
 ## Required third-party tools
 
-The package relies on RDKit (https://rdkit.org/) and the BioPython (https://biopython.org/) python packages to map the BILN peptide and generate the different molecular formats. RDKit can be installed using a Conda environment. The other packages and pyPept itself can be installed using the the `setup.py` file. A clear and quick installation guide is shown in the next section.
+The package relies on RDKit (https://rdkit.org/) and the BioPython (https://biopython.org/) python packages to map the BILN peptide and generate the different molecular formats.
 
 ## Quick installation
 
-We recommend creating a conda environment with python 3.9, and then install RDKit using the conda-forge channels. This can be done using the following commands:
+We recommend creating a conda environment with python 3.9
 ```Bash
 conda create -n pypept python=3.9
 conda activate pypept
-conda install -c conda-forge rdkit
 ```
 The remaining dependencies such as BioPython and Pandas can be installed using the `setup.py` file provided in the code repository, which uses python package managers to easily install the required modules. The script can be called with:
 ```Bash
-python setup.py install
+   pip install git+ssh://git@github.com:Boehringer-Ingelheim/pyPept.git
 ```
 
-That's all there is to installation! pyPept can be run using a CLI file provided called `run_pyPept.py` or by using the modules directly in a python script.
+That's all there is to installation! pyPept can be run using a CLI file provided called `run_pyPept` or by using the modules directly in a python script.
 Examples of both cases are described in the next section.
-
-Note that the `run_pyPept.py` is included when you clone the repository but *will not* be installed by the `setup.py` script to the directory where you installed the pyPept API libraries.
-You can place `run_pyPept.py` in a location convenient for you to run it, such as your home directory or a team's shared directory.
 
 ## How to run it
 
 ### 1. Using the command-line script provided
 
-The script `run_pyPept.py` has the following arguments:
+The script `run_pyPept` has the following arguments:
 
 ```  
 usage: run_pyPept.py [-h] (--biln string | --helm string | --fasta string) 
@@ -84,7 +80,7 @@ Specifically, pyPept can interconvert between HELM and FASTA formats to BILN, wh
 Additional options can be included based on the description provided in the help menu. An example using the biln sequence 'ac-D-T-H-F-E-I-A-am' is shown (``ac`` and ``am`` represent the terminal acid and amine, respectively, and are defined monomers as part of the pyPept package):
 
 ```Bash
-python run_pyPept.py --biln 'ac-D-T-H-F-E-I-A-am'
+run_pyPept --biln 'ac-D-T-H-F-E-I-A-am'
 ```
 
 ### 2. Using the modules individually
@@ -92,6 +88,7 @@ python run_pyPept.py --biln 'ac-D-T-H-F-E-I-A-am'
 If the functions want to be used separately, these are examples for each available class. The first thing is to import the modules and main functions:
 
 **NOTE: In the `examples` folder we provide a set of scripts to run some of the modules for generating 2D and 3D  representations using the peptides shown in the table with different formats (BILN and HELM).**
+
 ```Python
 # PyPept modules
 from pyPept.sequence import Sequence
@@ -120,7 +117,8 @@ If the peptide is in HELM notation, it can be converted to BILN using the follow
 
 ```Python
 # Call the converter to change from HELM to BILN
-from pyPept.converter import Converter
+from pyPept import Converter
+
 helm = "PEPTIDE1{[ac].D.T.H.F.E.I.A.[am]}$$$$V2.0"
 b = Converter(helm=helm)
 biln = b.get_biln()

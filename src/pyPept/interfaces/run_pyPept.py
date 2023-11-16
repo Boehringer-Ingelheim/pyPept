@@ -32,8 +32,8 @@ from pyPept.sequence import Sequence
 from pyPept.sequence import correct_pdb_atoms
 from pyPept.converter import Converter
 from pyPept.molecule import Molecule
-from pyPept.conformer import Conformer, ConformerConstants
-from pyPept.conformer import SecStructPredictor
+from pyPept.conformer import Conformer, ConformerConstants, SecStructPredictor
+
 
 ################################################################################
 # Declarations and argument parsing setup
@@ -107,8 +107,7 @@ def get_inputs_parser():
 ################################################################################
 # Main function
 ################################################################################
-
-if __name__ == "__main__":
+def main():
     # Read arguments
     useParser = argparse.ArgumentParser(
         description="""Generate atomistic 2D and 3D representations of peptides
@@ -220,3 +219,6 @@ if __name__ == "__main__":
     ########################################
     for f in outFileList:
         logger.info(f"File generated: {f}.")
+
+if __name__ == "__main__":
+    main()

@@ -19,15 +19,13 @@ __version__ = "1.0"
 # Modules
 ########################################################################################
 
-from pyPept.sequence import Sequence
-from pyPept.sequence import correct_pdb_atoms
-from pyPept.molecule import Molecule
-from pyPept.converter import Converter
-from pyPept.conformer import Conformer
+from src.pyPept.sequence import Sequence
+from src.pyPept.sequence import correct_pdb_atoms
+from src.pyPept import Molecule
+from src.pyPept import Conformer
 
 # RDKit modules
 from rdkit import Chem
-from rdkit.Chem import Draw
 
 # Start the Sequence object
 biln = "C(1,3)-A-A-A-C(1,3)"

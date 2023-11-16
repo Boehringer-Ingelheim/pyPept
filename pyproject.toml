@@ -1,0 +1,61 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyPept"
+version = "1.0.0"
+requires-python = ">=3.9"
+classifiers = [
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: OS Independent",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Topic :: Scientific/Engineering :: Chemistry",
+]
+dynamic = [
+    "dependencies",
+    "description",
+    "optional-dependencies",
+    "readme",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"pyPept.data" = ["*.txt", "*.rst", "*.json", "*.sdf"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+description = {file = "description.txt"}
+readme = {file = "README.md"}
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = {file = "requirements-dev.txt"}
+
+[tool.bumpver]
+current_version = "1.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message  = "Bump version {old_version} -> {new_version}"
+commit          = true
+tag             = true
+push            = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
+
+[project.scripts]
+run_pyPept = "pyPept.interfaces.run_pyPept:main"
+

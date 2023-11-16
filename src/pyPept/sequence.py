@@ -11,7 +11,7 @@ Journal of Cheminformatics, 2023
 
 __credits__ = ["Rodrigo Ochoa", "J.B. Brown", "Thomas Fox"]
 __license__ = "MIT"
-__version__ = "1.0"
+
 
 ########################################################################################
 # Modules
@@ -24,9 +24,10 @@ import copy
 import re
 import os
 import warnings
-import pkg_resources
+
 import string
 from collections import defaultdict
+from importlib.resources import files
 
 # Third-party libraries
 import numpy as np
@@ -42,7 +43,7 @@ class SequenceConstants:
     """
     A class to hold defaults values related to pyPept.Sequence objects.
     """
-    def_path = "data"
+    def_path = "pyPept.data"
     def_lib_filename = "monomers.sdf"
     monomer_join = "-"
     chain_separator = "."
@@ -93,19 +94,13 @@ class Sequence:
                              SequenceConstants.chain_separator, seq)
 
         # Read the monomer dictionary
-        if path != SequenceConstants.def_path or \
-                monomer_lib != SequenceConstants.def_lib_filename:
-            self.monomer_df = get_monomer_info(os.path.join(path, monomer_lib))
-        else:
-            try:
-                stream = pkg_resources.resource_stream(
-                    __name__, os.path.join(path, monomer_lib))
-                self.monomer_df = get_monomer_info(stream)
-                stream.close()
-            except FileNotFoundError:
-                self.monomer_df = get_monomer_info(os.path.join(
-                    SequenceConstants.def_path,
-                    SequenceConstants.def_lib_filename))
+        default_monomer_df_filepath = files(SequenceConstants.def_path).joinpath(SequenceConstants.def_lib_filename)
+        monomer_df_filepath = files(path).joinpath(monomer_lib)
+
+        if monomer_df_filepath.is_file() is False:
+            monomer_df_filepath = default_monomer_df_filepath
+
+        self.monomer_df = get_monomer_info(str(monomer_df_filepath))
 
         try:
             # Parse the BILN sequence
@@ -157,6 +152,7 @@ class Sequence:
                 resname = re.sub(r'^\[(.*)\]$', '\\1', resname)
 
                 # Check if name exists in MonomerDic
+
                 if resname not in self.monomer_df.index:
                     warnings.warn(
                         f"Monomer {resname} in BILN not found in MonomerDic")
@@ -738,17 +734,14 @@ def correct_pdb_atoms(seq, path=SequenceConstants.def_path,
     names_cap = {'ac': ['CH3', 'C', 'O'], 'am': ['N']}
 
     # Read the monomer dataframe
-    if path != SequenceConstants.def_path or monomer_lib != SequenceConstants.def_lib_filename:
-        new_df = get_monomer_info(os.path.join(path, monomer_lib))
-    else:
-        try:
-            stream = pkg_resources.resource_stream(__name__, os.path.join(path,
-                                                                          monomer_lib))
-            new_df = get_monomer_info(stream)
-            stream.close()
-        except FileNotFoundError:
-            new_df = get_monomer_info(os.path.join(SequenceConstants.def_path,
-                                                   SequenceConstants.def_lib_filename))
+    default_monomer_df_filepath = files(SequenceConstants.def_path).joinpath(SequenceConstants.def_lib_filename)
+    monomer_df_filepath = files(path).joinpath(monomer_lib)
+
+    if monomer_df_filepath.is_file() is False:
+        monomer_df_filepath = default_monomer_df_filepath
+
+    new_df = get_monomer_info(str(monomer_df_filepath))
+
 
     # Get monomer codes
     monomers = get_monomer_codes(new_df)

@@ -253,7 +253,7 @@ def get_inputs_parser():
 ##########################################################################
 # Main function
 ##########################################################################
-if __name__ == "__main__":
+def main():
     # Read arguments
     use_parser = argparse.ArgumentParser(
         description="""Generate monomer SDF file for pyPept""",
@@ -278,3 +278,6 @@ if __name__ == "__main__":
     logger.info("Generating a new monomer SDF file from %s" % args.input)
     generate_monomers(args.input, args.output)
     logger.info("Completed generation of %s" % args.output)
+
+if __name__ == "__main__":
+    main()

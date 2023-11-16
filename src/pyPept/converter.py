@@ -19,7 +19,6 @@ __version__ = "1.0"
 # pylint: disable=E1101
 
 # System libraries
-import sys
 import copy
 import re
 import warnings
