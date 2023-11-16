@@ -1,16 +1,16 @@
 References
 ==========
 
-.. currentmodule:: 'pypept'
+.. currentmodule:: 'pyPept'
 
 
 my_module
 ---------
-.. automodule:: pypept.my_module
+.. automodule:: pyPept.sequence
 .. autosummary::
     :toctree: generated
 
-     my_module.my_function
-     my_module.my_class
+     SequenceConstants
+     Sequence
 
 

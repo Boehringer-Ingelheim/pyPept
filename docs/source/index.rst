@@ -5,7 +5,7 @@
 
 
 
-Welcome to pypept's documentation!
+Welcome to pyPept's documentation!
 =========================================================================
 
 .. only:: html

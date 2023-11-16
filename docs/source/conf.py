@@ -5,7 +5,7 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-from src import pyPept
+import pyPept
 
 project = 'pyPept'
 copyright = '2023 Boehringer-Ingelheim'

@@ -9,7 +9,7 @@ Install with pip without cloning
 
 .. code-block:: console
 
-    $ pip install
+    $ pip install pyPept
 
 
 Development installation
@@ -17,12 +17,12 @@ Development installation
 
 If you are planning to contribute to the code or if you want to implement some custom-defined
 functionality, we recommend the installation for development. This will require some additional
-packages. To install pypept in development setting simply type:
+packages. To install pyPept in development setting simply type:
 
 
 .. code-block:: console
 
     $ git clone
-    $ cd pypept
+    $ cd pyPept
     $ pip install -e .[dev]
 
