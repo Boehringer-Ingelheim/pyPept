@@ -1,7 +1,7 @@
 Installation
 ============
 
-pypept requires python 3.9 or higher, as well as some common and reliable third party packages
+pyPept requires python 3.9 or higher, as well as some common and reliable third party packages
 
 Usage installation
 --------------------
