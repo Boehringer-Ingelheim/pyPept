@@ -9,7 +9,7 @@ Install with pip without cloning
 
 .. code-block:: console
 
-    $ pip install pyPept
+    $ pip install git+https://github.com/Boehringer-Ingelheim/pyPept.git
 
 
 Development installation
@@ -22,7 +22,7 @@ packages. To install pyPept in development setting simply type:
 
 .. code-block:: console
 
-    $ git clone [clone site]
+    $ git clone https://github.com/Boehringer-Ingelheim/pyPept.git
     $ cd pyPept
     $ pip install -e .[dev]
 

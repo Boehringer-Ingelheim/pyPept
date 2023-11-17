@@ -23,7 +23,7 @@ conda activate pypept
 ```
 The remaining dependencies such as BioPython and Pandas can be installed using the `setup.py` file provided in the code repository, which uses python package managers to easily install the required modules. The script can be called with:
 ```Bash
-   pip install git+ssh://git@github.com:Boehringer-Ingelheim/pyPept.git
+   pip install git+https://github.com/Boehringer-Ingelheim/pyPept.git
 ```
 
 That's all there is to installation! pyPept can be run using a CLI file provided called `run_pyPept` or by using the modules directly in a python script.
