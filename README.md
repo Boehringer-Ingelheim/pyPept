@@ -80,7 +80,7 @@ Specifically, pyPept can interconvert between HELM and FASTA formats to BILN, wh
 Additional options can be included based on the description provided in the help menu. An example using the biln sequence 'ac-D-T-H-F-E-I-A-am' is shown (``ac`` and ``am`` represent the terminal acid and amine, respectively, and are defined monomers as part of the pyPept package):
 
 ```Bash
-run_pyPept --biln 'ac-D-T-H-F-E-I-A-am'
+run_pyPept --biln ac-D-T-H-F-E-I-A-am
 ```
 
 ### 2. Using the modules individually
