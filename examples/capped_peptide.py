@@ -22,7 +22,6 @@ __version__ = "1.0"
 from pyPept.sequence import Sequence
 from pyPept.sequence import correct_pdb_atoms
 from pyPept.molecule import Molecule
-from pyPept.converter import Converter
 from pyPept.conformer import Conformer
 from pyPept.conformer import SecStructPredictor
 

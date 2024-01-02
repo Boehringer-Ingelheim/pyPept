@@ -13,7 +13,6 @@ Output: 2D image and PDB structure with 3D coordinates
 
 __credits__ = ["Rodrigo Ochoa", "J.B. Brown", "Thomas Fox"]
 __license__ = "MIT"
-__version__ = "1.0"
 
 ########################################################################################
 # Modules

@@ -11,7 +11,7 @@ Journal of Cheminformatics, 2023
 
 __credits__ = ["Rodrigo Ochoa", "J.B. Brown", "Thomas Fox"]
 __license__ = "MIT"
-__version__ = "1.0"
+
 
 #############################################################################
 # Modules
@@ -24,7 +24,7 @@ import warnings
 import math
 import os
 import sys
-import pkg_resources
+from importlib.resources import files
 
 # RDKit modules
 from rdkit import Chem
@@ -52,7 +52,7 @@ class ConformerConstants:
     """
     A class to hold defaults values related to pyPept.Conformer objects.
     """
-    def_path = "data"
+    def_path = "pyPept.data"
     def_matrix_filename = "matrix.txt"
     def_ss_filename = 'total_SS.txt'
     aminoacids = {"ALA": "A", "ASP": "D", "GLU": "E", "PHE": "F", "HIS": "H",
@@ -115,19 +115,13 @@ class Conformer:
                   'V': 'N[C@@]([H])(C(C)C)C(=O)O'}
 
         # Read the monomer dataframe
-        if path != SequenceConstants.def_path or \
-                monomer_lib != SequenceConstants.def_lib_filename:
-            new_df = get_monomer_info(os.path.join(path, monomer_lib))
-        else:
-            try:
-                stream = pkg_resources.resource_stream(
-                    __name__, os.path.join(path, monomer_lib))
-                new_df = get_monomer_info(stream)
-                stream.close()
-            except FileNotFoundError:
-                new_df = get_monomer_info(
-                    os.path.join(SequenceConstants.def_path,
-                                 SequenceConstants.def_lib_filename))
+        default_monomer_df_filepath = files(SequenceConstants.def_path).joinpath(SequenceConstants.def_lib_filename)
+        monomer_df_filepath = files(path).joinpath(monomer_lib)
+
+        if monomer_df_filepath.is_file() is False:
+            monomer_df_filepath = default_monomer_df_filepath
+
+        new_df = get_monomer_info(str(monomer_df_filepath))
 
         try:
             if SequenceConstants.chain_separator in biln:
@@ -372,7 +366,7 @@ class SecStructPredictor:
         :return: matrix dictionary
         """
         matrix_temp = {}
-        with open(path, 'rb') as file:
+        with open(path, 'r') as file:
             for line in file:
                 fields = line.split()
                 key = (fields[0], fields[1])
@@ -400,25 +394,15 @@ class SecStructPredictor:
         :return: score of the alignment
         """
 
+
         # Read the matrix file
-        if path != ConformerConstants.def_path or \
-                matrix_lib != ConformerConstants.def_matrix_filename:
-            matrix = SecStructPredictor.get_matrix(os.path.join(path, matrix_lib))
-        else:
-            try:
-                stream = pkg_resources.resource_stream(__name__, 
-                                        os.path.join(path, matrix_lib))
-                matrix={}
-                file = [x.decode().strip() for x in stream.readlines()]
-                for line in file:
-                    fields = line.split()
-                    key = (fields[0], fields[1])
-                    matrix[key] = int(fields[2])
-                stream.close()
-            except FileNotFoundError:
-                matrix = SecStructPredictor.get_matrix(os.path.join(
-                    ConformerConstants.def_path, 
-                    ConformerConstants.def_matrix_filename))
+        default_matrix_lib_filepath = files(ConformerConstants.def_path).joinpath(ConformerConstants.def_matrix_filename)
+        matrix_lib_filepath = files(path).joinpath(matrix_lib)
+
+        if matrix_lib_filepath.is_file() is False:
+            matrix_lib_filepath = default_matrix_lib_filepath
+
+        matrix = SecStructPredictor.get_matrix(str(matrix_lib_filepath))
 
         score_matrix = 0
 
@@ -496,21 +480,13 @@ class SecStructPredictor:
         """
 
         # Read the file with the active peptides Secondary Structure info
-        if path != ConformerConstants.def_path or \
-                ss_lib != ConformerConstants.def_ss_filename:
-            total_ss = [x.strip() for x in open(os.path.join(path, ss_lib),
-                                                encoding="utf8")]
-        else:
-            try:
-                stream = pkg_resources.resource_stream(
-                    __name__, os.path.join(path, ss_lib))
-                total_ss = [x.decode().strip() for x in stream.readlines()]
-                stream.close()
-            except FileNotFoundError:
-                total_ss = [x.strip() for x in open(os.path.join(
-                    ConformerConstants.def_path,
-                    ConformerConstants.def_ss_filename),
-                    encoding="utf8")]
+        default_ss_filepath = files(ConformerConstants.def_path).joinpath(ConformerConstants.def_ss_filename)
+        ss_filepath = files(path).joinpath(ss_lib)
+
+        if ss_filepath.is_file() is False:
+            ss_filepath = default_ss_filepath
+
+        total_ss = [x.strip() for x in open(str(ss_filepath),encoding="utf8")]
 
         if len(sequence) >= 5:
             # Store and filter based on peptides bigger than a particular size
