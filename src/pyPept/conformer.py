@@ -296,6 +296,8 @@ class Conformer:
                     segments.append(fragment)
                     flag = 0
                 fragment = []
+        if len(fragment) > 0:
+            segments.append(fragment)
 
         if len(segments) == 2 and len(segments[0]) == len(segments[1]):
             for i, ele in enumerate(segments[0]):
