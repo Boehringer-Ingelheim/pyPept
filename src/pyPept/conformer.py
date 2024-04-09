@@ -313,7 +313,7 @@ class Conformer:
             parameters.SetBoundsMat(bounds)
             parameters.useRandomCoords = True
             AllChem.EmbedMolecule(romol, parameters)
-            AllChem.UFFOptimizeMolecule(romol)
+            # AllChem.UFFOptimizeMolecule(romol)
             pdb_mol = Chem.MolToPDBBlock(romol)
         except FileExistsError:
             warnings.warn("Failed to generate the conformer in RDKit")
