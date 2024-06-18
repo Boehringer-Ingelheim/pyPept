@@ -533,7 +533,7 @@ def get_monomer_info(path):
             else:
                 updated_change = [None if v == 'None' else int(v) for v in
                                   change]
-            df_group[group][idx] = updated_change
+            df_group.loc[idx, group] = updated_change
     df_group = df_group.set_index('symbol')
     df_group = df_group.rename(columns={"ROMol": "m_romol"})
 
