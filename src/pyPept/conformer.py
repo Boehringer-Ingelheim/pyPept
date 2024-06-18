@@ -296,11 +296,16 @@ class Conformer:
                     segments.append(fragment)
                     flag = 0
                 fragment = []
+        if len(fragment) > 0:
+            segments.append(fragment)
 
         if len(segments) == 2 and len(segments[0]) == len(segments[1]):
             for i, ele in enumerate(segments[0]):
                 ind_o = backbone_atoms[ele][-1]
-                ind_n = backbone_atoms[segments[1][(i + 1) * -1]][0]
+                try:
+                    ind_n = backbone_atoms[segments[1][(i + 1) * -1]][0]
+                except IndexError:
+                    continue
                 bounds[ind_o, ind_n] = 3.2
 
         # Generate the new distance matrix and predict the conformer
@@ -311,7 +316,7 @@ class Conformer:
             parameters.SetBoundsMat(bounds)
             parameters.useRandomCoords = True
             AllChem.EmbedMolecule(romol, parameters)
-            AllChem.UFFOptimizeMolecule(romol)
+            # AllChem.UFFOptimizeMolecule(romol)
             pdb_mol = Chem.MolToPDBBlock(romol)
         except FileExistsError:
             warnings.warn("Failed to generate the conformer in RDKit")
