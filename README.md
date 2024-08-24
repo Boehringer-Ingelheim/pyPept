@@ -8,11 +8,11 @@
 
 ## Purpose
 
-Here we present pyPept, a package to allow the analysis of natural and modified peptides that are assembled based on personalized monomer dictionaries using the Boehringer Ingelheim line notation format (BILN). From the BILN, the peptide construct can then be represented as an RDKit object for further prediction of properties and chemical structures.
+Here we present pyPept, a package to allow the analysis of natural and modified peptides that are assembled based on personalized monomer dictionaries using the Boehringer Ingelheim line notation format (BILN). From the BILN, the peptide construct can then be represented as an RDKit object for further prediction of properties and usage in a variety of software packages that handle chemical structures.
 
 ## Required third-party tools
 
-The package relies on RDKit (https://rdkit.org/) and the BioPython (https://biopython.org/) python packages to map the BILN peptide and generate the different molecular formats.
+The package relies on the RDKit (https://rdkit.org/) and BioPython (https://biopython.org/) packages to map the BILN peptide and generate different molecular formats.
 
 ## Quick installation
 
@@ -26,7 +26,7 @@ The remaining dependencies such as BioPython and Pandas can be installed using t
 pip install git+https://github.com/Boehringer-Ingelheim/pyPept.git
 ```
 
-That's all there is to installation! pyPept can be run using a CLI file provided called `run_pyPept` or by using the modules directly in a python script.
+That's all there is to installation! The main pyPept BILN-to-structure pipeline can be run using the provided `run_pyPept` CLI tool, or by using pyPept modules directly in a python script.
 Examples of both cases are described in the next section.
 
 ## How to run it
