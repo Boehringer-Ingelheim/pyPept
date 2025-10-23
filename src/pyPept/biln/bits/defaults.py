@@ -1,6 +1,25 @@
 """
 A place where default BILN-related symbols and related information are defined.
+
+From publication: pyPept: a python library to generate atomistic 2D and 3D representations of peptides
+Journal of Cheminformatics, 2023
+
+Updated 2025
+From presentation: Modelling a (New) Modality: Computational Tools for Peptide Design
+Certara User Group Meeting, Frankfurt, 2025
 """
+
+################################################################################
+# Authorship
+################################################################################
+
+__credits__ = ["J.B. Brown", "Thomas Fox"]
+__license__ = "MIT"
+
+
+################################################################################
+# Modules
+################################################################################
 
 # System libraries needed by this module.
 import re
@@ -29,6 +48,9 @@ _defCompressCharacter = "x"
 # Default threshold of linker/FA monomer fraction in a chain to be called HLE
 _defLinkerFractionInHLE = 0.40
 
+##########################################################################
+# Functions and classes
+##########################################################################
 
 ############################################################
 class BILNConstants(object):

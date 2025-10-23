@@ -12,7 +12,26 @@ A monomer is expressed in the format <X>(a,b) , where:
         b=1   means the N-terminus of a monomer
         b=2   means the C-terminus of a monomer
         b=3,4 means another R-group used for linkages
+
+From publication: pyPept: a python library to generate atomistic 2D and 3D representations of peptides
+Journal of Cheminformatics, 2023
+
+Updated 2025
+From presentation: Modelling a (New) Modality: Computational Tools for Peptide Design
+Certara User Group Meeting, Frankfurt, 2025
 """
+
+################################################################################
+# Authorship
+################################################################################
+
+__credits__ = ["J.B. Brown", "Thomas Fox"]
+__license__ = "MIT"
+
+
+################################################################################
+# Modules
+################################################################################
 
 # System libraries needed by this module.
 import logging   # For messages and debugging.
@@ -41,6 +60,9 @@ from pyPept.monomerlib import MonomerLibrary
 sortMonomers = lambda m: (m.chain, m.number)    # Reliant on type-checking
 
 
+##########################################################################
+# Functions and classes
+##########################################################################
 
 ############################################################
 class BILNParser(object):

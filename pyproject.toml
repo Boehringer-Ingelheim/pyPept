@@ -57,5 +57,6 @@ push            = true
 "pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
 
 [project.scripts]
-run_pyPept = "pyPept.interfaces.run_pyPept:main"
+run_pyPept              = "pyPept.interfaces.run_pyPept:main"
+pyPept-BILN-validate    = "pyPept.interfaces.cli-BILN-ValidityChecker:runAsStandalone"
 

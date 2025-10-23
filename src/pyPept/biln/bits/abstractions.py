@@ -1,6 +1,25 @@
 """
 A place where basic abstract types related to BILNs are defined.
+
+From publication: pyPept: a python library to generate atomistic 2D and 3D representations of peptides
+Journal of Cheminformatics, 2023
+
+Updated 2025
+From presentation: Modelling a (New) Modality: Computational Tools for Peptide Design
+Certara User Group Meeting, Frankfurt, 2025
 """
+
+################################################################################
+# Authorship
+################################################################################
+
+__credits__ = ["J.B. Brown", "Thomas Fox"]
+__license__ = "MIT"
+
+
+################################################################################
+# Modules
+################################################################################
 
 # System libraries needed by this module.
 from collections import namedtuple
@@ -11,6 +30,10 @@ from collections import namedtuple
 
 
 # ----- Begin code for this module. -----
+
+##########################################################################
+# Functions and classes
+##########################################################################
 
 # Named tuple classes
 NumberedMonomer = namedtuple('NumberedMonomer', ('chain', 'number', 'monomer'))

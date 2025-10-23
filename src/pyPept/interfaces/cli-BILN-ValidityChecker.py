@@ -1,7 +1,26 @@
 #!/usr/bin/env python3
 """
-Check the validity of BILN strings, using different criteria.
+CLI to check the validity of BILN strings.
+
+From publication: pyPept: a python library to generate atomistic 2D and 3D representations of peptides
+Journal of Cheminformatics, 2023
+
+Updated 2025
+From presentation: Modelling a (New) Modality: Computational Tools for Peptide Design
+Certara User Group Meeting, Frankfurt, 2025
 """
+
+################################################################################
+# Authorship
+################################################################################
+
+__credits__ = ["J.B. Brown", "Thomas Fox"]
+__license__ = "MIT"
+
+
+################################################################################
+# Modules
+################################################################################
 
 # System libraries needed by this module.
 import argparse  # If used as standalone application.
@@ -13,6 +32,7 @@ import sys
 
 # Project-specific modules additionally needed.
 from pyPept.biln import BILNConstants, BILNParser
+from pyPept.biln import BILNSequenceError, BILNMultiError
 
 # ----- Begin code for this module. -----
 _defColMolID = 1
@@ -45,6 +65,15 @@ def getOptionalInputsParser():
     parser = argparse.ArgumentParser(add_help=False)
     options = parser.add_argument_group('Optional arguments')
     options.add_argument(
+        '--permitnondictmonomers', action='store_false', dest="only_dict_mono",
+        help="""
+        For general validity checking, permit monomers beyond those in the
+        monomer dictionary used. This is useful when validating sequences that
+        appear in literature or patents but might not be registered in
+        dictionary, such as the common OEG linker monomer.""")
+
+    directInputOpts = parser.add_argument_group('Direct input options')
+    directInputOpts.add_argument(
         '--title', type=str,
         required=False, default="NONE",
         help="For single BILN input, molecule title to assign. Default NONE.")
@@ -95,15 +124,22 @@ def getStandaloneParser():
 
 ############################################################
 def commonPrint(title: str, validity: bool, valid_branching: bool,
-        invalid_monomers: tuple, valid_monomers: tuple,
+        invalid_monomers: tuple, failed_reason: object,
         out_delimiter="\t"):
     """
     A print function that uniformly handles output of this tool.
     """
+    if failed_reason is None:
+        errorStr = "None"
+    elif isinstance(failed_reason, BILNMultiError):
+        errorStr = str(failed_reason)
+    else:
+        err_type = str(type(failed_reason)).split(".")[-1].replace("'>", "")
+        errorStr = "%s: %s" % (err_type, str(failed_reason))
     print(out_delimiter.join([
         title, str(validity), str(valid_branching),
         " ".join(sorted(set(invalid_monomers))) or "None", 
-        " ".join(sorted(set(valid_monomers))) or "None",
+        errorStr
         ]))
 ############################################################
 
@@ -135,20 +171,10 @@ def runAsStandalone():
     ########################################
     ## Begin main driver execution #########
     ########################################
-    print("\t".join(("MolTitle", "Valid?",
-        "ValidBranchAnnotations?", "InvalidMonomers", "ValidMonomers")))
-
     # Workflow
+    testPairs = list()
     if args.biln:
-        valid = BILNParser.IsValidSequence(args.biln)
-        valMonomers = tuple([m.monomer for m in BILNParser.GetNumberedBILN(
-                                        args.biln, returnFormat='monomerobj')
-                        if BILNParser.IsValidMonomer(m.monomer)])
-        valBranch = BILNParser.HasValidBranchAnnotations(args.biln)
-        invalMonomers = BILNParser.GetInvalidMonomers(args.biln)
-        commonPrint(args.title, valid, valBranch, invalMonomers, valMonomers)
-
-    # Operating mode 2 : BILNs in a tabular input
+        testPairs.append((args.title, args.biln))
     elif args.table:
         with open(args.table) as inTable:
             if args.header:
@@ -158,17 +184,29 @@ def runAsStandalone():
                     tokens = line.strip().split(args.delim)
                     title = tokens[args.colmolid - 1]
                     biln = tokens[args.colbiln - 1]
-                    valid = BILNParser.IsValidSequence(biln)
-                    valMonomers = tuple([m.monomer for m in 
-                                    BILNParser.GetNumberedBILN(
-                                        biln, returnFormat='monomerobj')
-                                    if BILNParser.IsValidMonomer(m.monomer)])
-                    valBranch = BILNParser.HasValidBranchAnnotations(biln)
-                    invalMonomers = BILNParser.GetInvalidMonomers(biln)
-                    commonPrint(title, valid, valBranch,
-                        invalMonomers, valMonomers)
+                    testPairs.append((title, biln))
                 except Exception as e:
                     logger.warning("Failed to process %s: %s" % (tokens, e))
+    
+    # Data extracted, handle uniformly
+    print("\t".join(("MolTitle", "Valid?",
+        "ValidBranchAnnotations?", "Non-Dict-Monomers", "Failure-Reason")))
+
+    for mol_title, BILN in testPairs:
+
+        errors = None
+        valid = True
+        try:
+            valid = BILNParser.IsValidSequence(BILN,
+                        onlyMonoDictMonomers=args.only_dict_mono,
+                        raiseError=True)
+        except BILNSequenceError as e:
+            errors = e
+            valid = False
+
+        valBranch = BILNParser.HasValidBranchAnnotations(BILN)
+        invalMonomers = BILNParser.GetInvalidMonomers(BILN)
+        commonPrint(mol_title, valid, valBranch, invalMonomers, errors)
 
     # Termination and cleanup.
     logger.info("Successful completion of %s." % __main__.__file__)
