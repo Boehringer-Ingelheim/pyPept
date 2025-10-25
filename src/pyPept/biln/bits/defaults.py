@@ -1,7 +1,8 @@
 """
 A place where default BILN-related symbols and related information are defined.
 
-From publication: pyPept: a python library to generate atomistic 2D and 3D representations of peptides
+From publication: pyPept: a python library to generate atomistic
+    2D and 3D representations of peptides
 Journal of Cheminformatics, 2023
 
 Updated 2025
@@ -22,8 +23,6 @@ __license__ = "MIT"
 ################################################################################
 
 # System libraries needed by this module.
-import re
-import warnings
 
 # Third-party libraries needed by this module, e.g. numpy.
 
@@ -53,9 +52,9 @@ _defLinkerFractionInHLE = 0.40
 ##########################################################################
 
 ############################################################
-class BILNConstants(object):
+class BILNConstants():
     """A placeholder for BI peptide line notation constants and defaults."""
-    
+
     @staticmethod
     def GetDefaultMonomerSeparator():
         """
@@ -74,19 +73,19 @@ class BILNConstants(object):
         """
         return _defChainSeparator
     ########################################
-    
+
     @staticmethod
     def GetDefaultNumericAnnotationSeparator():
         """
-        Provides the expected/default separator between chain numbers, 
+        Provides the expected/default separator between chain numbers,
         monomer numbers, and monomer labels.
-        
+
         >>> BILNConstants.GetDefaultNumericAnnotationSeparator()
         ':'
         """
         return _defNumAnnotationSeparator
     ########################################
-    
+
     @staticmethod
     def GetDefaultNNAAStartDelimiter():
         """
@@ -98,13 +97,13 @@ class BILNConstants(object):
         """
         return _defNNAAStartDelim
     ########################################
-    
+
     @staticmethod
     def GetDefaultNNAAEndDelimiter():
         """
         Provides the expected/default character that ends annotation of
         a non-natural amino acid or branch point.
-        
+
         >>> BILNConstants.GetDefaultNNAAEndDelimiter()
         ']'
         """
@@ -122,7 +121,7 @@ class BILNConstants(object):
         """
         return _defCompressCharacter
     ########################################
-    
+
     @staticmethod
     def GetAcceptableMonomerCodes(monomer_library=None):
         """
@@ -142,18 +141,18 @@ class BILNConstants(object):
         assert isinstance(useLib, MonomerLibrary)
         return tuple(useLib[MonomerConstants.attr_monomer_symbol])
     ########################################
-    
+
     @staticmethod
     def GetMaximumRGroupNumber():
         """
         Provide the maximum R-group attachment point number tolerated by each
         monomer. Though four R-groups are theoretically possible, it is
-        an observation that peptide monomers nearly always have R1- and R2- 
+        an observation that peptide monomers nearly always have R1- and R2-
         groups to form amide bonds, and a single R3 side-chain group.
         """
         return 3
     ########################################
-    
+
     @staticmethod
     def GetBranchingRegex():
         """
@@ -162,22 +161,22 @@ class BILNConstants(object):
         return "\\(-?[1-9],-?[1-9]\\)"
         #return "\(-\d+,-?\d+)"  # Support arbitrary integer branchID!
     ########################################
-    
+
     @staticmethod
     def GetFattyAcidRegex():
         """Provides a regular expression to detect fatty acids in a BILN."""
         return "C[012]?[0-9][D]?A"
     ########################################
-    
+
     @staticmethod
     def _GetStandardAAs_1L(format="string"):
-        _standardAAs = "ACDEFGHIKLMNPQRSTVWY"
+        _standard_amino_acids = "ACDEFGHIKLMNPQRSTVWY"
         if format == "string":
-            return _standardAAs
-        else:
-            return tuple([l for l in _standardAAs])
+            return _standard_amino_acids
+        # Otherwise as a tuple
+        return tuple(l for l in _standard_amino_acids)
     ########################################
-    
+
     # Define acceptable words used to define strategy for splitting mol to #chains
     labelSortLength = 'purelength'
     labelSortAACount = 'aacount'
@@ -186,12 +185,15 @@ class BILNConstants(object):
 
     @staticmethod
     def GetDefaultChainSortCriteria():
+        """Provides a sort criteria as defined in the BILNConstants.
+        At present, this is to sort by chain length.
+        """
         return BILNConstants.labelSortLength
 
     @staticmethod
     def GetInvalidSequenceExamples():
         """Provides a collection of INVALID BILN strings.
-        
+
         :return: tuple of str
 
         >>> len(BILNConstants.GetInvalidSequenceExamples())
@@ -218,7 +220,7 @@ class BILNConstants(object):
                 title="Valid pair branch but invalid bond indices."),
             TitledBILNExample(BILN="G(1,4)-K(1,3)-D(2,2).OEG2(1,2)",
                 title="No OEG2 monomer, bond indices mismatch, no R4 for G"),
-            
+
             # R-group assignment problems
             TitledBILNExample(BILN="Y-K(1,1)-G-Y-NH2.C20DA-gGlu-eLys(1,2)",
                 title="R1 invalid when in middle of chain."),
@@ -233,11 +235,11 @@ class BILNConstants(object):
 
         )
     ########################################
-    
+
     @staticmethod
     def GetValidSequenceExamples():
         """Provides a collection of VALID BILN strings.
-        
+
         :return: tuple of str
 
         >>> len(BILNConstants.GetValidSequenceExamples())
@@ -289,11 +291,11 @@ class BILNConstants(object):
 
 ## Verify that the module's interfaces work as the doctests demonstrate.
 if __name__ == "__main__":
-  
+
     import doctest, os, sys, __main__
-    numFail, numTests = doctest.testmod()
+    num_fail, numTests = doctest.testmod()
     modulePath = os.path.abspath(__main__.__file__)
-    if numFail > 0:
+    if num_fail > 0:
         print('%s : Expected functionality in doctests fail!' % modulePath)
         sys.exit(-1)
     elif numTests > 0:

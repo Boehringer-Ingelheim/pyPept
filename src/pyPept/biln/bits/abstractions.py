@@ -1,7 +1,8 @@
 """
 A place where basic abstract types related to BILNs are defined.
 
-From publication: pyPept: a python library to generate atomistic 2D and 3D representations of peptides
+From publication: pyPept: a python library to generate atomistic
+    2D and 3D representations of peptides
 Journal of Cheminformatics, 2023
 
 Updated 2025
@@ -44,22 +45,37 @@ HLE = namedtuple('HLE', ('chain', 'branchmonomer', 'linkers', 'FA', 'BILN'))
 MonomerPair = namedtuple('MonomerPair', ('monomer1', 'monomer2'))
 
 # Error classes that need to be raised.
-class BILNSequenceError(ValueError): pass
-class InvalidMonomerName(BILNSequenceError): pass
-class AmbiguousBranchIDs(BILNSequenceError): pass
+class BILNSequenceError(ValueError):
+    """An error class that serves as a parent class to all types of
+    BILN errors that can occur.
+    """
+    pass
 
-class InvalidMonomerRGroup(BILNSequenceError): pass
-class InvalidChainBeginRGroup(InvalidMonomerRGroup): pass
-class InvalidChainEndRGroup(InvalidMonomerRGroup): pass
-class InvalidChainMiddleRGroup(InvalidMonomerRGroup): pass
-class RepeatRGroupMonomer(BILNSequenceError): pass
+class InvalidMonomerName(BILNSequenceError):
+    pass
+class AmbiguousBranchIDs(BILNSequenceError):
+    pass
 
-class BILNMultiError(BILNSequenceError): pass
+class InvalidMonomerRGroup(BILNSequenceError):
+    pass
+class InvalidChainBeginRGroup(InvalidMonomerRGroup):
+    pass
+class InvalidChainEndRGroup(InvalidMonomerRGroup):
+    pass
+class InvalidChainMiddleRGroup(InvalidMonomerRGroup):
+    pass
+class RepeatRGroupMonomer(BILNSequenceError):
+    pass
+
+class BILNMultiError(BILNSequenceError):
+    """A class raised when multiple errors occur during BILN validation.
+    """
+    pass
 
 
 ## Verify that the module's interfaces work as the doctests demonstrate.
 if __name__ == "__main__":
-  
+
     import doctest, os, sys, __main__
     numFail, numTests = doctest.testmod()
     modulePath = os.path.abspath(__main__.__file__)

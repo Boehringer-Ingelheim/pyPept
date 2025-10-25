@@ -36,12 +36,12 @@ from rdkit.Chem import PandasTools
 ############################################################
 class MonomerConstants:
     """
-    A container class to hold defaults values related to loading of monomers 
+    A container class to hold defaults values related to loading of monomers
     for a monomer library.
     """
     def_path = "pyPept.data"
     def_lib_filename = "monomers.sdf"
-    _sdf_change_separator = ","
+    sdf_change_separator = ","
 
     attr_monomer_symbol = "m_abbr"
     attr_linkable_R_groups = "m_Rgroups"
@@ -58,7 +58,7 @@ class MonomerLibrary:
     """
 
     ############################################################
-    def __init__(self, 
+    def __init__(self,
                 data_dir=MonomerConstants.def_path,
                 monomer_lib_file=MonomerConstants.def_lib_filename,
                 logger=logging.Logger("dummy")):
@@ -67,7 +67,7 @@ class MonomerLibrary:
 
         :param data_dir: the directory location of a monomer library.
         :type data_dir: str
-        :param monomer_lib_file: the SDF with monomers within the 
+        :param monomer_lib_file: the SDF with monomers within the
             directory to search through.
         :type monomer_lib_file: str
         """
@@ -90,7 +90,7 @@ class MonomerLibrary:
 
         self.monomer_df = self._load_monomer_sdf(str(monomer_df_filepath))
     ############################################################
-    
+
     ############################################################
     def _load_monomer_sdf(self, path):
         """
@@ -112,7 +112,7 @@ class MonomerLibrary:
         for idx in df_group.index:
             for group in groups:
                 change = df_group[group][idx].split(
-                    MonomerConstants._sdf_change_separator)
+                    MonomerConstants.sdf_change_separator)
                 if group == MonomerConstants.attr_linkable_R_groups:
                     updated_change = [
                         None if v == 'None' else v for v in change]
@@ -140,11 +140,11 @@ class MonomerLibrary:
         """
         return self.monomer_df[library_attribute]
     ############################################################
-    
+
     ############################################################
     def GetMonomerNames(self):
         """Return the list of monomer names in this library.
-        
+
         :return: a tuple of str
         """
         return tuple(self[MonomerConstants.attr_monomer_symbol])
@@ -153,7 +153,7 @@ class MonomerLibrary:
     ############################################################
     def GetRGroups(self, monomer):
         """Return the valid R-group identifiers for a given monomer.
-        
+
         :param monomer: a monomer symbol, such as A, DAla, etc.
         :type monomer: str
         :return: a tuple of strings "R1", "R2", ...
@@ -182,15 +182,15 @@ class MonomerLibrary:
 
 ## Verify that the module's interfaces work as the doctests demonstrate.
 if __name__ == "__main__":
-  
+
     import doctest, os, sys, __main__
-    numFail, numTests = doctest.testmod()
+    num_fail, num_tests = doctest.testmod()
     modulePath = os.path.abspath(__main__.__file__)
-    if numFail > 0:
+    if num_fail > 0:
         print('%s : Expected functionality in doctests fail!' % modulePath)
         sys.exit(-1)
-    elif numTests > 0:
-        print("%s : All %i doctests passed." % (modulePath, numTests))
+    elif num_tests > 0:
+        print("%s : All %i doctests passed." % (modulePath, num_tests))
         sys.exit(0)
     else:
         print("%s : WARNING - No doctests defined." % modulePath)

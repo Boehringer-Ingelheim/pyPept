@@ -2,7 +2,8 @@
 """
 CLI to check the validity of BILN strings.
 
-From publication: pyPept: a python library to generate atomistic 2D and 3D representations of peptides
+From publication: pyPept: a python library to generate atomistic
+    2D and 3D representations of peptides
 Journal of Cheminformatics, 2023
 
 Updated 2025
@@ -39,18 +40,17 @@ _defColMolID = 1
 _defColBILN = 2
 
 ############################################################
-def getRequiredInputsParser():
+def get_required_inputs_parser():
     """Constructs parser for absolute minimum required inputs."""
 
     parser = argparse.ArgumentParser(add_help=False)
-    requiredArgs = parser.add_argument_group('Required arguments')
 
-    inputTypeGroup = parser.add_mutually_exclusive_group(required=True)
-    inputTypeGroup.add_argument(
+    input_type_group = parser.add_mutually_exclusive_group(required=True)
+    input_type_group.add_argument(
         '--biln', type=str, metavar='text',
         required=False,
         help="BILN string to check for validity.")
-    inputTypeGroup.add_argument(
+    input_type_group.add_argument(
         '--table', type=str, metavar='filename',
         required=False,
         help="Table containing BILN strings and molecule IDs.")
@@ -59,7 +59,7 @@ def getRequiredInputsParser():
 
 
 ############################################################
-def getOptionalInputsParser():
+def get_optional_inputs_parser():
     """Constructs parser for optional arguments."""
 
     parser = argparse.ArgumentParser(add_help=False)
@@ -72,37 +72,37 @@ def getOptionalInputsParser():
         appear in literature or patents but might not be registered in
         dictionary, such as the common OEG linker monomer.""")
 
-    directInputOpts = parser.add_argument_group('Direct input options')
-    directInputOpts.add_argument(
+    direct_input_opts = parser.add_argument_group('Direct input options')
+    direct_input_opts.add_argument(
         '--title', type=str,
         required=False, default="NONE",
         help="For single BILN input, molecule title to assign. Default NONE.")
-    
-    tableCols = parser.add_argument_group('Table-type input')
-    tableCols.add_argument(
+
+    table_cols = parser.add_argument_group('Table-type input')
+    table_cols.add_argument(
         '-d', '--delim', type=str, metavar='char',
         required=False, default="\t",
         help="Delimiter of table, default tab.")
-    tableCols.add_argument(
+    table_cols.add_argument(
         '--colmolid', type=int,
         required=False, default=_defColMolID,
         help="Column with molecule ID, default %i." % _defColMolID)
-    tableCols.add_argument(
+    table_cols.add_argument(
         '--colbiln', type=int,
         required=False, default=_defColBILN,
         help="Column with BILN, default %i." % _defColBILN)
-    tableCols.add_argument(
+    table_cols.add_argument(
         '--noheader', action='store_false', dest='header',
         help="Table has no header, and begin BILN conversion from first line.")
-    
+
     # A repeated-use log option parser.
-    logOptions = parser.add_argument_group('Logging options')
-    logOptions.add_argument(
+    log_options = parser.add_argument_group('Logging options')
+    log_options.add_argument(
         '--logfile', type=str, metavar='filename',
         required=False, default=None,
         help="Output messages to given logfile, default is stderr.")
-    logOptions.add_argument(
-        "-v", "--verbose", action="store_true", 
+    log_options.add_argument(
+        "-v", "--verbose", action="store_true",
         help="Increase output verbosity")
 
     return parser
@@ -110,13 +110,13 @@ def getOptionalInputsParser():
 
 
 ############################################################
-def getStandaloneParser():
+def get_standalone_parser():
     """Constructs parser to run this script as standalone application."""
 
     parser = argparse.ArgumentParser(
         description="""Check BILN strings for their validity.""",
         parents=(
-            getRequiredInputsParser(), getOptionalInputsParser(),
+            get_required_inputs_parser(), get_optional_inputs_parser(),
             ))
 
     return parser
@@ -130,16 +130,16 @@ def commonPrint(title: str, validity: bool, valid_branching: bool,
     A print function that uniformly handles output of this tool.
     """
     if failed_reason is None:
-        errorStr = "None"
+        error_str = "None"
     elif isinstance(failed_reason, BILNMultiError):
-        errorStr = str(failed_reason)
+        error_str = str(failed_reason)
     else:
         err_type = str(type(failed_reason)).split(".")[-1].replace("'>", "")
-        errorStr = "%s: %s" % (err_type, str(failed_reason))
+        error_str = "%s: %s" % (err_type, str(failed_reason))
     print(out_delimiter.join([
         title, str(validity), str(valid_branching),
-        " ".join(sorted(set(invalid_monomers))) or "None", 
-        errorStr
+        " ".join(sorted(set(invalid_monomers))) or "None",
+        error_str
         ]))
 ############################################################
 
@@ -150,11 +150,11 @@ def commonPrint(title: str, validity: bool, valid_branching: bool,
 ###############################################################################
 ###############################################################################
 
-def runAsStandalone():
+def run_as_standalone():
     """Contains script execution flow as main standalone application.
     """
 
-    useParser = getStandaloneParser()
+    useParser = get_standalone_parser()
     args = useParser.parse_args()
 
     # Setup typical logger for messages to stderr.
@@ -187,7 +187,7 @@ def runAsStandalone():
                     testPairs.append((title, biln))
                 except Exception as e:
                     logger.warning("Failed to process %s: %s" % (tokens, e))
-    
+
     # Data extracted, handle uniformly
     print("\t".join(("MolTitle", "Valid?",
         "ValidBranchAnnotations?", "Non-Dict-Monomers", "Failure-Reason")))
@@ -210,13 +210,13 @@ def runAsStandalone():
 
     # Termination and cleanup.
     logger.info("Successful completion of %s." % __main__.__file__)
-    
+
 # end of running script as standalone application.
 
 
 # What to do if script is run as a main driver program.
 if __name__ == "__main__":
 
-    runAsStandalone()
+    run_as_standalone()
 
 # ----- End code for this module. -----

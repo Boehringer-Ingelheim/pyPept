@@ -1,7 +1,8 @@
 """
 Export of abstract data used in BILN-related code.
 
-From publication: pyPept: a python library to generate atomistic 2D and 3D representations of peptides
+From publication: pyPept: a python library to generate atomistic
+    2D and 3D representations of peptides
 Journal of Cheminformatics, 2023
 
 Updated 2025
