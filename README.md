@@ -8,7 +8,7 @@
 
 ## Purpose
 
-Here we present pyPept, a package to allow the analysis of natural and modified peptides that are assembled based on personalized monomer dictionaries using the Boehringer Ingelheim line notation format (BILN). From the BILN, the peptide construct can then be represented as an RDKit object for further prediction of properties and usage in a variety of software packages that handle chemical structures.
+pyPept is a package to allow the analysis of natural and modified peptides that are assembled based on personalized monomer dictionaries using the Boehringer Ingelheim line notation format (BILN). From a BILN, a peptide construct can then be represented as an RDKit object for further prediction of properties and usage in a variety of software packages that handle chemical structures. pyPept provides both programmatic APIs and CLI tools. 
 
 ## Required third-party tools
 
@@ -28,10 +28,11 @@ pip install git+https://github.com/Boehringer-Ingelheim/pyPept.git
 
 That's all there is to installation! The main pyPept BILN-to-structure pipeline can be run using the provided `run_pyPept` CLI tool, or by using pyPept modules directly in a python script.
 Examples of both cases are described in the next section.
+The validity of BILNs can be checked by running either the `pyPept-BILN-validate` CLI tool or using the API, e.g. `BILNParser.IsValidSequence(biln)`.
 
-## How to run it
+## How to perform sequence-to-molecule conversion:
 
-### 1. Using the command-line script provided
+### 1. Using the command-line scripts provided
 
 The script `run_pyPept` has the following arguments:
 
