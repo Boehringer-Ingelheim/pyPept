@@ -58,5 +58,5 @@ push            = true
 
 [project.scripts]
 run_pyPept              = "pyPept.interfaces.run_pyPept:main"
-pyPept-BILN-validate    = "pyPept.interfaces.cli-BILN-ValidityChecker:run_as_standalone"
+pyPept-BILN-validate    = "pyPept.interfaces.cli_BILN_validityChecker:run_as_standalone"
 
