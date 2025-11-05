@@ -171,6 +171,12 @@ A set of unit tests are available in the `tests` folder. These can be run separa
 python test.py
 ```
 
+Each of the functions included in the `BILNParser` object provides doctests that demonstrate usage of the parser. Directly executing the module with the parser's implementation code will run these tests and report if any code does not return the results as documented (e.g., an error can occur when the monomer library has been modified to include new monomers specific to a user). Otherwise, the a message will return the number of doctests executed that returned results as documented:
+```Bash
+python implementation.py 
+src/pyPept/biln/parser/implementation.py : All 185 doctests passed.
+```
+
 ## References
 
 If you use pyPept in your work, please cite the following papers:
