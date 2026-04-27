@@ -525,6 +525,10 @@ def get_monomer_info(path):
     df_group = PandasTools.LoadSDF(sdf_file)
 
     groups = ['m_Rgroups', 'm_RgroupIdx', 'm_attachmentPointIdx']
+    # Pandas 2.x uses Arrow-backed string columns that reject list assignment.
+    # Cast only the three list-valued columns to object dtype before writing.
+    for group in groups:
+        df_group[group] = df_group[group].astype(object)
     for idx in df_group.index:
         for group in groups:
             change = df_group[group][idx].split(SequenceConstants.csv_separator)
@@ -533,7 +537,7 @@ def get_monomer_info(path):
             else:
                 updated_change = [None if v == 'None' else int(v) for v in
                                   change]
-            df_group.loc[idx, group] = updated_change
+            df_group.at[idx, group] = updated_change
     df_group = df_group.set_index('symbol')
     df_group = df_group.rename(columns={"ROMol": "m_romol"})
 
